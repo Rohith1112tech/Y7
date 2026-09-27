@@ -8,8 +8,11 @@ const getApiUrl = () => {
   if (!envUrl || typeof envUrl !== 'string') {
     return 'http://localhost:5000/api';
   }
-  const cleanUrl = envUrl.replace(/^VITE_API_URL=/, '').trim();
-  return cleanUrl || 'http://localhost:5000/api';
+  let cleanUrl = envUrl.replace(/^VITE_API_URL=/, '').trim().replace(/\/+$/, '');
+  if (!cleanUrl.endsWith('/api')) {
+    cleanUrl += '/api';
+  }
+  return cleanUrl;
 };
 
 const API_URL = getApiUrl();

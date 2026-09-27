@@ -32,7 +32,19 @@ export default function AdminLogin() {
       setAuth(data, data.token, rememberMe);
       navigate("/admin/dashboard");
     } catch (err) {
-      const msg = err.response?.data?.message || err.response?.data?.error || (err.message === "Network Error" ? "Network Error: Could not connect to backend. Please check CORS/backend status." : "Invalid Email or Password");
+      console.error("Login error details:", err);
+      let msg = "Invalid Email or Password";
+      if (err.response?.status === 401) {
+        msg = "Invalid Email or Password";
+      } else if (err.response?.status === 404) {
+        msg = "Backend API route not found (404).";
+      } else if (err.response?.data?.message) {
+        msg = err.response.data.message;
+      } else if (err.message === "Network Error") {
+        msg = "Could not connect to backend. Please check network/CORS.";
+      } else if (err.message) {
+        msg = err.message;
+      }
       setError(msg);
       setLoading(false);
     }

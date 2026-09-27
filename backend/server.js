@@ -60,17 +60,23 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'Studio Y7 API is running' });
 });
 
-app.use('/api/auth', authRoutes);
-app.use('/api/cloudinary', cloudinaryRoutes);
-app.use('/api/gallery', galleryRoutes);
-app.use('/api/hero', heroRoutes);
-app.use('/api/bookings', bookingRoutes);
-app.use('/api/contacts', contactRoutes);
-app.use('/api/testimonials', testimonialRoutes);
-app.use('/api/content', contentRoutes);
-app.use('/api/pricing', pricingRoutes);
-app.use('/api/services', serviceRoutes);
-app.use('/api/videos', videoRoutes);
+// Mount routes under both /api/* and /* for full client resilience
+const registerRoute = (prefix, router) => {
+  app.use(`/api/${prefix}`, router);
+  app.use(`/${prefix}`, router);
+};
+
+registerRoute('auth', authRoutes);
+registerRoute('cloudinary', cloudinaryRoutes);
+registerRoute('gallery', galleryRoutes);
+registerRoute('hero', heroRoutes);
+registerRoute('bookings', bookingRoutes);
+registerRoute('contacts', contactRoutes);
+registerRoute('testimonials', testimonialRoutes);
+registerRoute('content', contentRoutes);
+registerRoute('pricing', pricingRoutes);
+registerRoute('services', serviceRoutes);
+registerRoute('videos', videoRoutes);
 
 const PORT = process.env.PORT || 5000;
 
