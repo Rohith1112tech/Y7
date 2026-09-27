@@ -45,6 +45,16 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Root endpoint
+app.get('/', (req, res) => {
+  res.json({
+    status: 'ok',
+    message: 'Studio Y7 Backend API is running successfully',
+    health: '/api/health',
+    frontend: 'https://y7studio.netlify.app'
+  });
+});
+
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'Studio Y7 API is running' });
