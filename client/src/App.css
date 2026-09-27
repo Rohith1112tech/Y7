@@ -1,0 +1,45 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+.hero{
+  height:80vh;
+  background:url("https://images.unsplash.com/photo-1511285560929-80b456fea0bc");
+  background-size:cover;
+  background-position:center;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.overlay{
+  text-align:center;
+  color:white;
+  background:rgba(0,0,0,0.5);
+  padding:40px;
+  border-radius:15px;
+}
+
+h1{
+  font-size:5rem;
+  letter-spacing:8px;
+}
+
+p{
+  margin-top:15px;
+  font-size:1.2rem;
+}
+
+.buttons{
+  margin-top:30px;
+}
+
+button{
+  margin:10px;
+  padding:12px 25px;
+  border:none;
+  cursor:pointer;
+  border-radius:5px;
+}
