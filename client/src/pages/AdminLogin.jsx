@@ -28,11 +28,12 @@ export default function AdminLogin() {
     }
 
     try {
-      const { data } = await authAPI.login({ email, password });
+      const { data } = await authAPI.login({ email: email.trim(), password });
       setAuth(data, data.token, rememberMe);
       navigate("/admin/dashboard");
     } catch (err) {
-      setError("Invalid Email or Password");
+      const msg = err.response?.data?.message || err.response?.data?.error || (err.message === "Network Error" ? "Network Error: Could not connect to backend. Please check CORS/backend status." : "Invalid Email or Password");
+      setError(msg);
       setLoading(false);
     }
   };

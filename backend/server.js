@@ -24,12 +24,17 @@ const app = express();
 
 const allowedOrigins = process.env.CLIENT_URL
   ? process.env.CLIENT_URL.split(',').map(origin => origin.trim())
-  : ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:3000'];
+  : ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:3000', 'https://y7studio.netlify.app'];
 
 app.use(cors({
   origin: (origin, callback) => {
     if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin) || allowedOrigins.includes('*')) {
+    if (
+      allowedOrigins.includes(origin) ||
+      allowedOrigins.includes('*') ||
+      origin.endsWith('.netlify.app') ||
+      origin.includes('localhost')
+    ) {
       return callback(null, true);
     }
     return callback(new Error(`CORS policy blocked access from origin: ${origin}`));
